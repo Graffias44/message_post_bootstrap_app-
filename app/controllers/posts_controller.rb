@@ -1,5 +1,10 @@
 class PostsController < ApplicationController
-  # 略
+  
+  def index
+    # ***** 以下を追加 *****
+    @posts = Post.order(id: :asc)
+    # ***** 以上を追加 *****
+  end
 
   def new
   # ***** 以下を追加 *****
@@ -19,8 +24,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     # ***** 以上を追加 *****
   end
-
-  # 略
 
   # ***** 以下を追加 *****
   private
