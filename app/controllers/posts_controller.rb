@@ -1,0 +1,57 @@
+class PostsController < ApplicationController
+  
+  def index
+    # ***** 以下を追加 *****
+    @posts = Post.order(id: :asc)
+    # ***** 以上を追加 *****
+  end
+
+  def new
+  # ***** 以下を追加 *****
+    @post = Post.new
+  # ***** 以上を追加 *****
+  end
+
+  def create
+  # ***** 以下を追加 *****
+    post = Post.create!(post_params)
+    redirect_to post
+  # ***** 以上を追加 *****
+  end
+
+  def show
+    # ***** 以下を追加 *****
+    @post = Post.find(params[:id])
+    # ***** 以上を追加 *****
+  end
+
+  def destroy
+    # ***** 以下を追加 *****
+    post = Post.find(params[:id])
+    post.destroy!
+    redirect_to root_path
+    # ***** 以上を追加 *****
+  end
+
+  def edit
+    # ***** 以下を追加 *****
+    @post = Post.find(params[:id])
+    # ***** 以上を追加 *****
+  end
+
+  def update
+    # ***** 以下を追加 *****
+    post = Post.find(params[:id])
+    post.update!(post_params)
+    redirect_to post
+    # ***** 以上を追加 *****
+  end
+
+  # ***** 以下を追加 *****
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :content)
+  end
+  # ***** 以上を追加 *****
+end
