@@ -1,57 +1,50 @@
 class PostsController < ApplicationController
-  
+  # ***** 以下を追加 *****
+  before_action :set_post, only: %i[show edit update destroy]
+  # ***** 以上を追加 *****
+
   def index
-    # ***** 以下を追加 *****
     @posts = Post.order(id: :asc)
-    # ***** 以上を追加 *****
-  end
-
-  def new
-  # ***** 以下を追加 *****
-    @post = Post.new
-  # ***** 以上を追加 *****
-  end
-
-  def create
-  # ***** 以下を追加 *****
-    post = Post.create!(post_params)
-    redirect_to post
-  # ***** 以上を追加 *****
   end
 
   def show
-    # ***** 以下を追加 *****
-    @post = Post.find(params[:id])
-    # ***** 以上を追加 *****
+  # ***** 修正 *****
   end
 
-  def destroy
-    # ***** 以下を追加 *****
-    post = Post.find(params[:id])
-    post.destroy!
-    redirect_to root_path
-    # ***** 以上を追加 *****
+  def new
+    @post = Post.new
+  end
+
+  def create
+    post = Post.create!(post_params)
+    redirect_to post
   end
 
   def edit
-    # ***** 以下を追加 *****
-    @post = Post.find(params[:id])
-    # ***** 以上を追加 *****
+  # ***** 修正 *****
   end
 
   def update
-    # ***** 以下を追加 *****
-    post = Post.find(params[:id])
-    post.update!(post_params)
-    redirect_to post
-    # ***** 以上を追加 *****
+  # ***** 修正(@を追加しているので注意！) *****
+    @post.update!(post_params)
+    redirect_to @post
   end
 
-  # ***** 以下を追加 *****
+  def destroy
+  # ***** 修正(@を追加しているので注意！) *****
+    @post.destroy!
+    redirect_to root_path
+  end
+
   private
+
+  # ***** 以下を追加 *****
+  def set_post
+    @post = Post.find(params[:id])
+  end
+  # ***** 以上を追加 *****
 
   def post_params
     params.require(:post).permit(:title, :content)
   end
-  # ***** 以上を追加 *****
 end
