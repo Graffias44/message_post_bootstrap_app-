@@ -23,7 +23,9 @@ module PostBootstrapApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
-
+    # ***** 以下を追加 *****
+    config.i18n.default_locale = :ja
+    # ***** 以上を追加 *****
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
